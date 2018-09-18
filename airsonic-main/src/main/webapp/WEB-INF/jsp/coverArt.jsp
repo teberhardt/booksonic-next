@@ -50,6 +50,11 @@ PARAMETERS
                 <c:param name="id" value="${param.podcastChannelId}"/>
             </c:url>
         </c:if>
+        <c:if test="${not empty param.audiobookId}">
+            <c:url value="audiobook.view" var="targetUrl">
+                <c:param name="id" value="${param.audiobookId}"/>
+            </c:url>
+        </c:if>
 
         <c:url value="/coverArt.view" var="coverArtUrl">
             <c:if test="${not empty param.coverArtSize}">
@@ -60,6 +65,9 @@ PARAMETERS
             </c:if>
             <c:if test="${not empty param.podcastChannelId}">
                 <c:param name="id" value="pod-${param.podcastChannelId}"/>
+            </c:if>
+            <c:if test="${not empty param.audiobookId}">
+                <c:param name="id" value="audiobook-${param.audiobookId}"/>
             </c:if>
             <c:if test="${not empty param.playlistId}">
                 <c:param name="id" value="pl-${param.playlistId}"/>
@@ -137,6 +145,9 @@ PARAMETERS
         </c:if>
         <c:if test="${not empty param.podcastChannelId}">
         top.playQueue.onPlayPodcastChannel(${param.podcastChannelId});
+        </c:if>
+        <c:if test="${not empty param.audiobookId}">
+        top.playQueue.onPlayAudiobook(${param.audiobookId});
         </c:if>
     });
 
