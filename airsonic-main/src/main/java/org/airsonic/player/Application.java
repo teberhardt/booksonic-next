@@ -147,7 +147,7 @@ public class Application extends SpringBootServletInitializer implements Embedde
     public FilterRegistrationBean noCacheFilterRegistration() {
         FilterRegistrationBean registration = new FilterRegistrationBean();
         registration.setFilter(noCacheFilter());
-        registration.addUrlPatterns("/statusChart.view", "/userChart.view", "/playQueue.view", "/podcastChannels.view", "/podcastChannel.view", "/help.view", "/top.view", "/home.view");
+        registration.addUrlPatterns("/statusChart.view", "/userChart.view", "/playQueue.view", "/podcastChannels.view", "/podcastChannel.view", "/help.view", "/top.view", "/home.view", "/audiobooks.view");
         registration.addInitParameter("Cache-Control", "no-cache, post-check=0, pre-check=0");
         registration.addInitParameter("Pragma", "no-cache");
         registration.addInitParameter("Expires", "Thu, 01 Dec 1994 16:00:00 GMT");
