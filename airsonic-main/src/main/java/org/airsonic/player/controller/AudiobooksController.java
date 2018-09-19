@@ -59,7 +59,7 @@ public class AudiobooksController {
 
         map.put("user", securityService.getCurrentUser(request));
         map.put("abooks", abooks);
-       // map.put("abookSeriesMap", abookSeriesMap);
+
         map.put("hearedRecently", audiobooksService.getAudiobooksHearedRecently());
         return result;
     }
