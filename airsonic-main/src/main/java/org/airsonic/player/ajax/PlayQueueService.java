@@ -36,6 +36,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Provides AJAX-enabled services for manipulating the play queue of a player.
@@ -67,6 +68,8 @@ public class PlayQueueService {
     private RatingService ratingService;
     @Autowired
     private PodcastService podcastService;
+    @Autowired
+    private AudiobookService audiobookService;
     @Autowired
     private PlaylistService playlistService;
     @Autowired
@@ -325,6 +328,24 @@ public class PlayQueueService {
                 }
             }
         }
+        Player player = getCurrentPlayer(request, response);
+        return doPlay(request, player, files).setStartPlayerAt(0);
+    }
+
+    public PlayQueueInfo playAudiobook(int id) throws Exception {
+        HttpServletRequest request = WebContextFactory.get().getHttpServletRequest();
+        HttpServletResponse response = WebContextFactory.get().getHttpServletResponse();
+
+
+        Audiobook audiobook = audiobookService.getAudiobook(id);
+        PodcastEpisode episode = podcastService.getEpisode(id, false);
+        List<PodcastEpisode> allEpisodes = podcastService.getEpisodes(episode.getChannelId());
+
+        List<MediaFile> files = audiobook.getAudiobookFiles()
+                .stream()
+                .map( e -> mediaFileService.getMediaFile(e.getMediaFileId()))
+                .collect(Collectors.toList());
+
         Player player = getCurrentPlayer(request, response);
         return doPlay(request, player, files).setStartPlayerAt(0);
     }
