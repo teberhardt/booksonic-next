@@ -6,6 +6,12 @@ public class Audiobook {
 
     private Integer id;
 
+    private List<AudiobookFile> audiobookFiles;
+
+    private String title;
+
+    private String description;
+
     public String getTitle() {
         return title;
     }
@@ -14,23 +20,27 @@ public class Audiobook {
         this.title = title;
     }
 
-    private String title;
-
-    public List<Integer> getMediaFileIds() {
-        return mediaFileIds;
-    }
-
-    public void setMediaFileIds(List<Integer> mediaFileIds) {
-        this.mediaFileIds = mediaFileIds;
-    }
-
-    private List<Integer> mediaFileIds;
-
     public Integer getId() {
         return id;
     }
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public List<AudiobookFile> getAudiobookFiles() {
+        return audiobookFiles;
+    }
+
+    public void setAudiobookFiles(List<AudiobookFile> audiobookFiles) {
+        this.audiobookFiles = audiobookFiles;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }
