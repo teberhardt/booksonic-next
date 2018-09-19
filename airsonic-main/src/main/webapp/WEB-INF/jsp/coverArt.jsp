@@ -5,6 +5,7 @@
 PARAMETERS
   albumId: ID of album.
   playlistId: ID of playlist.
+  audiobookId: ID of audiobook
   podcastChannelId: ID of podcast channel
   coverArtSize: Height and width of cover art.
   caption1: Caption line 1
@@ -67,7 +68,7 @@ PARAMETERS
                 <c:param name="id" value="pod-${param.podcastChannelId}"/>
             </c:if>
             <c:if test="${not empty param.audiobookId}">
-                <c:param name="id" value="audiobook-${param.audiobookId}"/>
+                <c:param name="id" value="${param.audiobookId}"/>
             </c:if>
             <c:if test="${not empty param.playlistId}">
                 <c:param name="id" value="pl-${param.playlistId}"/>

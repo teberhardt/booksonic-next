@@ -37,7 +37,7 @@
 <c:forEach items="${model.abooks}" var="abook" varStatus="loopStatus">
 
     <c:set var="caption2">
-        <fmt:message key="audiobooks.files"><fmt:param value="${fn:length(abook.mediaFileIds)}"/></fmt:message>
+        <fmt:message key="audiobooks.files"><fmt:param value="${fn:length(abook.audiobookFiles)}"/></fmt:message>
     </c:set>
     <div class="albumThumb">
         <c:import url="coverArt.jsp">
@@ -51,41 +51,4 @@
         </c:import>
     </div>
 </c:forEach>
-
-<%--<c:if test="${not empty model.hearedRecently}">
-    <h2 style="margin-top:1em"><fmt:message key="audiobooks.hearedRecently"/></h2>
-    <table class="music indent">
-        <c:forEach items="${model.hearedRecently}" var="abook" varStatus="i">
-            <tr>
-                <c:import url="playButtons.jsp">
-                    <c:param name="id" value="${abook.mediaFileId}"/>
-                    <c:param name="audiobookId" value="${abook.id}"/>
-                    <c:param name="playEnabled" value="${model.user.streamRole and not model.partyMode}"/>
-                    <c:param name="addEnabled" value="${model.user.streamRole and not model.partyMode}"/>
-                    <c:param name="asTable" value="true"/>
-                    <c:param name="onPlay" value="top.playQueue.onPlayAudiobook(${i.index})"/>
-                </c:import>
-                <c:set var="channelTitle" value="${model.channelMap[abook.channelId].title}"/>
-
-                <td class="truncate">
-                    <span title="${abook.title}" class="songTitle">${abook.title}</span>
-                </td>
-
-                <td class="truncate">
-                    <a href="podcastChannel.view?id=${abook.channelId}"><span class="detail" title="${channelTitle}">${channelTitle}</span></a>
-                </td>
-
-                <td class="fit">
-                    <span class="detail">${abook.duration}</span>
-                </td>
-
-                <td class="fit">
-                    <span class="detail"><fmt:formatDate value="${abook.publishDate}" dateStyle="medium"/></span>
-                </td>
-
-            </tr>
-        </c:forEach>
-    </table>
-</c:if>
-</body>--%>
 </html>

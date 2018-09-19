@@ -296,6 +296,9 @@
     function onPlayPodcastChannel(id) {
         playQueueService.playPodcastChannel(id, playQueueCallback);
     }
+    function onPlayAudiobook(id) {
+        playQueueService.playAudiobook(id, playQueueCallback);
+    }
     function onPlayPodcastEpisode(id) {
         playQueueService.playPodcastEpisode(id, playQueueCallback);
     }
