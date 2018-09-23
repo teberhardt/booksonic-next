@@ -116,6 +116,11 @@ public class MusicFolderSettingsCommand {
         this.ignoreSymLinks = ignoreSymLinks;
     }
 
+    public MusicFolder.FolderType[] getAvailableFolderTypes()
+    {
+        return MusicFolder.FolderType.values();
+    }
+
     public static class MusicFolderInfo {
 
         private Integer id;
@@ -124,6 +129,7 @@ public class MusicFolderSettingsCommand {
         private boolean enabled;
         private boolean delete;
         private boolean existing;
+        private MusicFolder.FolderType folderType;
 
         public MusicFolderInfo(MusicFolder musicFolder) {
             id = musicFolder.getId();
@@ -131,6 +137,7 @@ public class MusicFolderSettingsCommand {
             name = musicFolder.getName();
             enabled = musicFolder.isEnabled();
             existing = musicFolder.getPath().exists() && musicFolder.getPath().isDirectory();
+            folderType = musicFolder.getFolderType();
         }
 
         public MusicFolderInfo() {
@@ -187,11 +194,19 @@ public class MusicFolderSettingsCommand {
             if (name == null) {
                 name = file.getName();
             }
-            return new MusicFolder(id, new File(path), name, enabled, new Date());
+            return new MusicFolder(id, new File(path), name, enabled, new Date(), folderType);
         }
 
         public boolean isExisting() {
             return existing;
+        }
+
+        public MusicFolder.FolderType getFolderType() {
+            return folderType;
+        }
+
+        public void setFolderType(MusicFolder.FolderType folderType) {
+            this.folderType = folderType;
         }
     }
 }

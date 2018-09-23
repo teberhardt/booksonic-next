@@ -33,6 +33,7 @@
 <table class="indent">
     <tr>
         <th><fmt:message key="musicfoldersettings.name"/></th>
+        <th><fmt:message key="musicfoldersettings.type"/></th>
         <th><fmt:message key="musicfoldersettings.path"/></th>
         <th style="padding-left:1em"><fmt:message key="musicfoldersettings.enabled"/></th>
         <th style="padding-left:1em"><fmt:message key="common.delete"/></th>
@@ -42,6 +43,11 @@
     <c:forEach items="${command.musicFolders}" var="folder" varStatus="loopStatus">
         <tr>
             <td><form:input path="musicFolders[${loopStatus.count-1}].name" size="20"/></td>
+            <td align="center" style="padding-left:1em">
+                <form:select path="musicFolders[${loopStatus.count-1}].folderType">
+                    <form:options items="${command.availableFolderTypes}"/>
+                </form:select>
+            </td>
             <td><form:input path="musicFolders[${loopStatus.count-1}].path" size="40"/></td>
             <td align="center" style="padding-left:1em"><form:checkbox path="musicFolders[${loopStatus.count-1}].enabled" cssClass="checkbox"/></td>
             <td align="center" style="padding-left:1em"><form:checkbox path="musicFolders[${loopStatus.count-1}].delete" cssClass="checkbox"/></td>
@@ -57,8 +63,13 @@
 
     <tr>
         <td><form:input id="newMusicFolderName" path="newMusicFolder.name" size="20"/></td>
+        <td align="center" style="padding-left:1em">
+            <form:select path="newMusicFolder.folderType">
+                <form:options items="${command.availableFolderTypes}"/>
+            </form:select></td>
         <td><form:input id="newMusicFolderPath" path="newMusicFolder.path" size="40"/></td>
         <td align="center" style="padding-left:1em"><form:checkbox path="newMusicFolder.enabled" cssClass="checkbox"/></td>
+
         <td></td>
     </tr>
 
@@ -127,16 +138,6 @@
     <p class="detail" style="width:60%;white-space:normal;margin-top:-10px;">
         <fmt:message key="musicfoldersettings.expunge.description"/>
     </p>
-
-    <%--<div>--%>
-        <%--<form:checkbox path="organizeByFolderStructure" cssClass="checkbox" id="organizeByFolderStructure"/>--%>
-        <%--<form:label path="organizeByFolderStructure"><fmt:message key="musicfoldersettings.organizebyfolderstructure"/></form:label>--%>
-    <%--</div>--%>
-
-    <%--<p class="detail" style="width:60%;white-space:normal;">--%>
-        <%--<fmt:message key="musicfoldersettings.organizebyfolderstructure.description"/>--%>
-    <%--</p>--%>
-
     <p >
         <input type="submit" value="<fmt:message key="common.save"/>" style="margin-right:0.3em">
         <input type="button" value="<fmt:message key="common.cancel"/>" onclick="location.href='nowPlaying.view'">
