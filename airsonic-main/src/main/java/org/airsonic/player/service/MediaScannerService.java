@@ -191,7 +191,7 @@ public class MediaScannerService {
             // Scan podcast folder.
             File podcastFolder = new File(settingsService.getPodcastFolder());
             if (podcastFolder.exists()) {
-                scanFile(mediaFileService.getMediaFile(podcastFolder), new MusicFolder(podcastFolder, null, true, null),
+                scanFile(mediaFileService.getMediaFile(podcastFolder), new MusicFolder(podcastFolder, null, true, null, MusicFolder.FolderType.MUSIC),
                          lastScanned, albumCount, genres, true);
             }
 

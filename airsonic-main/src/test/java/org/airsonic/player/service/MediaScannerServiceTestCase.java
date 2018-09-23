@@ -165,7 +165,7 @@ public class MediaScannerServiceTestCase {
         File musicFile = artistDir.toPath().resolve(fileName).toFile();
         IOUtils.copy(resource.getInputStream(), new FileOutputStream(musicFile));
 
-        MusicFolder musicFolder = new MusicFolder(1, temporaryFolder.getRoot(), "Music", true, new Date());
+        MusicFolder musicFolder = new MusicFolder(1, temporaryFolder.getRoot(), "Music", true, new Date(), MusicFolder.FolderType.MUSIC);
         musicFolderDao.createMusicFolder(musicFolder);
         settingsService.clearMusicFolderCache();
         TestCaseUtils.execScan(mediaScannerService);

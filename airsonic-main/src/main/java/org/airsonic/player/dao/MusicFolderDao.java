@@ -40,7 +40,7 @@ import java.util.List;
 public class MusicFolderDao extends AbstractDao {
 
     private static final Logger LOG = LoggerFactory.getLogger(MusicFolderDao.class);
-    private static final String INSERT_COLUMNS = "path, name, enabled, changed";
+    private static final String INSERT_COLUMNS = "path, name, enabled, changed, type";
     private static final String QUERY_COLUMNS = "id, " + INSERT_COLUMNS;
     private final MusicFolderRowMapper rowMapper = new MusicFolderRowMapper();
     
@@ -63,8 +63,8 @@ public class MusicFolderDao extends AbstractDao {
      * @param musicFolder The music folder to create.
      */
     public void createMusicFolder(MusicFolder musicFolder) {
-        String sql = "insert into music_folder (" + INSERT_COLUMNS + ") values (?, ?, ?, ?)";
-        update(sql, musicFolder.getPath().getPath(), musicFolder.getName(), musicFolder.isEnabled(), musicFolder.getChanged());
+        String sql = "insert into music_folder (" + INSERT_COLUMNS + ") values (?, ?, ?, ?, ?)";
+        update(sql, musicFolder.getPath().getPath(), musicFolder.getName(), musicFolder.isEnabled(), musicFolder.getChanged(), musicFolder.getFolderType().toString());
 
         Integer id = queryForInt("select max(id) from music_folder", 0);
         update("insert into music_folder_user (music_folder_id, username) select ?, username from " + userDao.getUserTable(), id);
@@ -88,9 +88,9 @@ public class MusicFolderDao extends AbstractDao {
      * @param musicFolder The music folder to update.
      */
     public void updateMusicFolder(MusicFolder musicFolder) {
-        String sql = "update music_folder set path=?, name=?, enabled=?, changed=? where id=?";
+        String sql = "update music_folder set path=?, name=?, enabled=?, changed=?, type=? where id=?";
         update(sql, musicFolder.getPath().getPath(), musicFolder.getName(),
-               musicFolder.isEnabled(), musicFolder.getChanged(), musicFolder.getId());
+               musicFolder.isEnabled(), musicFolder.getChanged(), musicFolder.getFolderType().toString(), musicFolder.getId());
     }
 
     public List<MusicFolder> getMusicFoldersForUser(String username) {
@@ -108,7 +108,7 @@ public class MusicFolderDao extends AbstractDao {
 
     private static class MusicFolderRowMapper implements RowMapper<MusicFolder> {
         public MusicFolder mapRow(ResultSet rs, int rowNum) throws SQLException {
-            return new MusicFolder(rs.getInt(1), new File(rs.getString(2)), rs.getString(3), rs.getBoolean(4), rs.getTimestamp(5));
+            return new MusicFolder(rs.getInt(1), new File(rs.getString(2)), rs.getString(3), rs.getBoolean(4), rs.getTimestamp(5), MusicFolder.FolderType.valueOf(rs.getString(6)));
         }
     }
 

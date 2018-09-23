@@ -41,6 +41,7 @@ public class MusicFolder implements Serializable {
     private String name;
     private boolean isEnabled;
     private Date changed;
+    private FolderType folderType;
 
     /**
      * Creates a new music folder.
@@ -51,12 +52,13 @@ public class MusicFolder implements Serializable {
      * @param enabled Whether the folder is enabled.
      * @param changed When the corresponding database entry was last changed.
      */
-    public MusicFolder(Integer id, File path, String name, boolean enabled, Date changed) {
+    public MusicFolder(Integer id, File path, String name, boolean enabled, Date changed, FolderType folderType ) {
         this.id = id;
         this.path = path;
         this.name = name;
         isEnabled = enabled;
         this.changed = changed;
+        this.folderType = folderType;
     }
 
     /**
@@ -67,8 +69,8 @@ public class MusicFolder implements Serializable {
      * @param enabled Whether the folder is enabled.
      * @param changed When the corresponding database entry was last changed.
      */
-    public MusicFolder(File path, String name, boolean enabled, Date changed) {
-        this(null, path, name, enabled, changed);
+    public MusicFolder(File path, String name, boolean enabled, Date changed, FolderType folderType) {
+        this(null, path, name, enabled, changed, folderType);
     }
 
     /**
@@ -193,5 +195,18 @@ public class MusicFolder implements Serializable {
                 return from.getPath().getPath();
             }
         };
+    }
+
+    public FolderType getFolderType() {
+        return folderType;
+    }
+
+    public void setFolderType(FolderType folderType) {
+        this.folderType = folderType;
+    }
+
+    public static enum FolderType {
+        MUSIC,
+        AUDIOBOOK,
     }
 }

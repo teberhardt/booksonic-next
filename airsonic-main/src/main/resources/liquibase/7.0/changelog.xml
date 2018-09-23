@@ -1,0 +1,24 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="abook_001" author="teberhardt">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <columnExists tableName="music_folder" columnName="type" />
+            </not>
+        </preConditions>
+        <addColumn tableName="music_folder">
+            <column name="type" type="${varchar_type}"/>
+        </addColumn>
+       <update tableName="music_folder">
+            <column name="type" value="MUSIC"/>
+        </update>
+        <addNotNullConstraint tableName="music_folder" columnName="type"/>
+        <rollback>
+            <dropColumn tableName="music_folder" columnName="type"/>
+        </rollback>
+    </changeSet>
+
+</databaseChangeLog>
